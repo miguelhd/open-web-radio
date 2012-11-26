@@ -32,6 +32,3 @@ Contributors:
 Silvia Benvenuti,
 Mark Boas,
 Trygve Lie
-             
-![open-web-radio](https://github.com/maboa/open-web-radio/raw/master/openwebradio.jpg)      
-
