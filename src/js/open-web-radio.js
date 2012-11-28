@@ -4,7 +4,7 @@ $(document).ready(function(){
 	
 	var myPlayer = $("#jquery_jplayer_1");   
 	var station = 0;   
-	
+
 	var stations = [
 		{mp3: "http://mp3-vr-128.as34763.net:80/;stream/1",
 		oga: "http://ogg2.as34763.net/vr160.ogg"}, 
@@ -17,6 +17,13 @@ $(document).ready(function(){
 		{mp3: "http://mp3-a0-128.as34763.net:80/;stream/1",
 		oga: "http://ogg2.as34763.net/a0160.ogg"}                      
 	];
+
+  // radio appearance
+
+  var dialerStart = 227;
+  var dialerWidth = 344;
+  var volDegMin = 0;
+  var volDegMax = 270;
 
 	myPlayer.jPlayer({
 		ready: function () {
@@ -31,31 +38,19 @@ $(document).ready(function(){
 		//warningAlerts: "true"
   	}); 
    
-	function getArcPc(pageX, pageY, elem) { 
-		var	self	= elem,
-			offset	= self.offset(),
-			x	= pageX - offset.left - self.width()/2,
-			y	= pageY - offset.top - self.height()/2,
-			a	= Math.atan2(y,x);  
-			
-		if (a > -1*Math.PI && a < -0.5*Math.PI) {
-		   a = 2*Math.PI+a; 
-		} 
-
-		// a is now value between -0.5PI and 1.5PI 
-		// ready to be normalized and applied   			
-		
-		var pc = (a + Math.PI/2) / 2*Math.PI * 10;   
-		   
-		return pc;
-	} 
-	      
 	var zoneSize = 100/stations.length;  
    
-	
+  function bound(val) {
+    if (val > 100) return 100;
+    if (val < 0) return 0;
+    return val;
+  };
+
 	function spinTuning(event) {
 		var self = $('#tuning');
-		var pc = getArcPc(event.position.x,event.position.y,self);       
+    var value = self.data("value") - 0.3*event.move.y;
+		var pc = bound(value);       
+    self.data("value", pc);
 		var degs = pc * 3.6+"deg"; 
 		self.css({rotate: degs}); 
 		
@@ -78,7 +73,7 @@ $(document).ready(function(){
 			}
 		}
 		
-		return(pc);
+		return pc;
 	}    
 	
 	function startChannel(){
@@ -87,64 +82,22 @@ $(document).ready(function(){
 	      
 	var switchedOn = false;
 	var volume = 0;    
+  
+  // start at spinVolumes current value
+  $("#volume").css({
+    rotate: $("#volume").data("value") * (volDegMax - volDegMin) / 100 + volDegMin + "degs"
+  });
 	
 	function spinVolume(event) {
 		var self = $('#volume');  
 	   
-		var pc = getArcPc(event.position.x,event.position.y,self);     
-		
-		// may be a better way of grabbing the degrees
-        //newVolPos = $('#volume').data('transform').rotate * 180 / Math.PI;  
-		
-		var degs = pc * 3.6+"deg";   
-		//var cssDegs = degs    
-		 
-		/*if ((pc > 75 && pc < 100) || (pc > 0 && pc < 25)) {
-			 self.css({rotate: degs});   
-		} */ 
-		
-		
-		
-		if (pc >= 50 && pc < 75) {
-			degs = '270deg';    
-			if (switchedOn == true) {
-				// stop the audio stream and set the media ready for playing 
+    var value = self.data("value") - 0.3*event.move.y;
+		var pc = bound(value);       
+    self.data("value", pc);
+		var degs = pc * (volDegMax - volDegMin) / 100 + volDegMin + "degs"; 
 
-				myPlayer.jPlayer("setMedia", {
-					mp3: stations[station].mp3, oga: stations[station].oga
-		      	});    
-				volume = 0;      
-				//console.log('off');
-			}
-			switchedOn = false;   
-			
-		}
-		else { 
-			if (switchedOn == false) {
-				// play the audio stream
-				myPlayer.jPlayer("play");   
-			}
-			switchedOn = true;        
-			if (pc >= 75) {
-			   volume = (pc - 75) * 2; 
-			} 
-			
-			if (pc <= 25) {
-				volume = (pc * 2) + 50;
-			}        
-			
-			myPlayer.jPlayer("volume",volume/100);
-			
-			//console.log(pc);   
-			//console.log("vol="+volume);
-		}
-		
-		if (pc > 25 && pc < 50) degs = '90deg';  
-        self.css({rotate: degs});   
-
-		//console.log(pc);
-
-		return(pc);
+    self.css({rotate: degs});   
+		myPlayer.jPlayer("volume", pc/100);
 	}
 	
 	
@@ -153,7 +106,7 @@ $(document).ready(function(){
 			// dragging = true;
 		}, onmove: function(event){ 
 			var pc = spinTuning(event); 
-			$('#dialer').css('left',((pc*8.8)+60)+'px');     
+			$('#dialer').css('left',((pc*dialerWidth/100)+dialerStart)+'px');     
 		}, onfinish: function(event){
            // do your funky thang here ...
 		}
@@ -163,8 +116,7 @@ $(document).ready(function(){
 		onstart: function(){     
 			//dragging = true;
 		}, onmove: function(event){   
-			var pc = spinVolume(event);   
-			//console.log(pc);
+			spinVolume(event);   
 		}
 	}); 
 	
