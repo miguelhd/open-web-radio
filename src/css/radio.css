@@ -99,6 +99,11 @@ body {
 } 
 
 img { border: 0; }
-
-
-
+.song {
+  color: #eee;
+  margin-left: 180px;
+  width: 400px;
+  background: rgba(0,0,0,0.7);
+  padding: 12px;
+  border-radius: 2px;
+}

@@ -6,16 +6,7 @@ $(document).ready(function(){
 	var station = 0;   
 
 	var stations = [
-		{mp3: "http://mp3-vr-128.as34763.net:80/;stream/1",
-		oga: "http://ogg2.as34763.net/vr160.ogg"}, 
-		{mp3: "http://mp3-vc-128.as34763.net:80/;stream/1",
-		oga: "http://ogg2.as34763.net/vc160.ogg"},
-		{mp3: "http://mp3-a8-128.as34763.net:80/;stream/1",
-		oga: "http://ogg2.as34763.net/a8160.ogg"},
-		{mp3: "http://mp3-a9-128.as34763.net:80/;stream/1",
-		oga: "http://ogg2.as34763.net/a9160.ogg"},
-		{mp3: "http://mp3-a0-128.as34763.net:80/;stream/1",
-		oga: "http://ogg2.as34763.net/a0160.ogg"}                      
+		{mp3: "http://198.154.106.98:8202/stream"}
 	];
 
   // radio appearance
@@ -27,16 +18,15 @@ $(document).ready(function(){
 
 	myPlayer.jPlayer({
 		ready: function () {
-      		$(this).jPlayer("setMedia", {
-				mp3: stations[station].mp3, oga: stations[station].oga
-      		});
-    	},   
-		solution: "html, flash",
-    	swfPath: "js",
-    	supplied: "mp3, oga"
-        //errorAlerts: "true",
-		//warningAlerts: "true"
-  	}); 
+      $(this).jPlayer("setMedia", {
+        mp3: stations[station].mp3
+      });
+    },   
+  	swfPath: "js",
+  	supplied: "mp3"
+    //errorAlerts: "true",
+    //warningAlerts: "true"
+  }); 
    
 	var zoneSize = 100/stations.length;  
    
