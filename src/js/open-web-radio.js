@@ -91,6 +91,7 @@ $(document).ready(function(){
 		onstart: function(){     
 			// dragging = true;
 		}, onmove: function(event){ 
+      play_static();
 			var pc = spinTuning(event); 
 			$('#dialer').css('left',((pc*dialerWidth/100)+dialerStart)+'px');     
 		}, onfinish: function(event){
@@ -106,11 +107,17 @@ $(document).ready(function(){
 		}
 	}); 
 
-
   // autoplay
   myPlayer.jPlayer("setMedia", {
     mp3: stations[0].mp3
   });
+  setTimeout(function() {myPlayer.jPlayer('play');},1500);
 
-  setTimeout(function() {myPlayer.jPlayer('play');},2500);
+  // static
+  var next_static = Math.round(5*Math.random());
+  function play_static() {
+    // pick random static sound
+    next_static = (next_static+1) % 6;
+    document.getElementById('static_' + next_static).play();
+  }
 });
