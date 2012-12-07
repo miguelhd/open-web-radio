@@ -53,8 +53,8 @@ $(document).ready(function(){
 			   	//console.log('station = '+i);
 				station = i;  
 				myPlayer.jPlayer("setMedia", {
-					mp3: stations[station].mp3, oga: stations[station].oga
-		      	});
+					mp3: stations[station].mp3
+		    });
 		           
 				// delay before playing or Firefox will stall for 15 seconds
 		
@@ -66,10 +66,6 @@ $(document).ready(function(){
 		return pc;
 	}    
 	
-	function startChannel(){
-		
-	}
-	      
 	var switchedOn = false;
 	var volume = 0;    
   
@@ -98,17 +94,23 @@ $(document).ready(function(){
 			var pc = spinTuning(event); 
 			$('#dialer').css('left',((pc*dialerWidth/100)+dialerStart)+'px');     
 		}, onfinish: function(event){
-           // do your funky thang here ...
+      // do your funky thang here ...
 		}
 	});   
 	
 	$('#volume').grab({
 		onstart: function(){     
-			//dragging = true;
+			// dragging = true;
 		}, onmove: function(event){   
 			spinVolume(event);   
 		}
 	}); 
-	
-	 
+
+
+  // autoplay
+  myPlayer.jPlayer("setMedia", {
+    mp3: stations[0].mp3
+  });
+
+  setTimeout(function() {myPlayer.jPlayer('play');},2500);
 });
