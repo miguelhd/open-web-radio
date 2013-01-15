@@ -86,12 +86,20 @@ $(document).ready(function(){
 		myPlayer.jPlayer("volume", pc/100);
 	}
 	
+  // static
+  var next_static = Math.round(5*Math.random());
+  var play_static = function() {
+    // pick random static sound
+    next_static = Math.floor(6*Math.random());
+    document.getElementById('static_' + next_static).play();
+  }
+  var throttled_static = _.throttle(play_static, 4);
 	
 	$('#tuning').grab({
 		onstart: function(){     
 			// dragging = true;
 		}, onmove: function(event){ 
-      play_static();
+      throttled_static();
 			var pc = spinTuning(event); 
 			$('#dialer').css('left',((pc*dialerWidth/100)+dialerStart)+'px');     
 		}, onfinish: function(event){
@@ -113,11 +121,4 @@ $(document).ready(function(){
   });
   setTimeout(function() {myPlayer.jPlayer('play');},1500);
 
-  // static
-  var next_static = Math.round(5*Math.random());
-  function play_static() {
-    // pick random static sound
-    next_static = (next_static+1) % 6;
-    document.getElementById('static_' + next_static).play();
-  }
 });

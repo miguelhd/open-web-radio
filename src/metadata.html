@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+ 
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>untitled</title>
+  <meta name="generator" content="TextMate http://macromates.com/">
+  <meta name="author" content="David Krupinski">
+  <!-- Date: 2012-12-05 -->
+  <script src="http://confit.aws.af.cm/socket.io/socket.io.js"></script>
+  <!--script src="http://localhost:5100/socket.io/socket.io.js"></script-->
+</head>
+<body>
+ 
+  <!--  var socket = io.connect('http://localhost:5100'); -->
+<script>
+  var socket = io.connect('http://confit.aws.af.cm');
+ 
+  socket.on('connect', function (data) {
+    socket.emit("join_channel", "8201");
+    console.log("client connected");
+  });
+ 
+  socket.on('track_change', function (data) {
+    console.log(data);
+  });
+</script>
+ 
+</body>
+</html>
