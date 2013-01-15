@@ -6,7 +6,10 @@ $(document).ready(function(){
 	var station = 0;   
 
 	var stations = [
-		{mp3: "http://198.154.106.98:8202/stream"}
+		{mp3: "http://198.154.106.98:8201/stream"},
+		{mp3: "http://198.154.106.98:8202/stream"},
+		{mp3: "http://198.154.106.98:8203/stream"},
+		{mp3: "http://198.154.106.98:8204/stream"}
 	];
 
   // radio appearance
@@ -35,13 +38,22 @@ $(document).ready(function(){
     if (val < 0) return 0;
     return val;
   };
+  
+  // start at spinTuning's current value
+  $("#tuning")
+    .css({
+      rotate: "0degs"
+    })
+    .animate({
+      rotate: ($("#tuning").data("value") * 3.6) + "degs"
+    }, 920);
 
 	function spinTuning(event) {
 		var self = $('#tuning');
-    var value = self.data("value") - 0.3*event.move.y;
+    var value = self.data("value") - 1.1*event.move.y;
 		var pc = bound(value);       
     self.data("value", pc);
-		var degs = pc * 3.6+"deg"; 
+		var degs = (pc * 3.6) +"deg"; 
 		self.css({rotate: degs}); 
 		
 		// Check for station change
@@ -57,9 +69,7 @@ $(document).ready(function(){
 		    });
 		           
 				// delay before playing or Firefox will stall for 15 seconds
-		
 				setTimeout(function() {myPlayer.jPlayer('play');},1500);
-
 			}
 		}
 		
@@ -70,14 +80,18 @@ $(document).ready(function(){
 	var volume = 0;    
   
   // start at spinVolumes current value
-  $("#volume").css({
-    rotate: $("#volume").data("value") * (volDegMax - volDegMin) / 100 + volDegMin + "degs"
-  });
+  $("#volume")
+    .css({
+      rotate: "0degs"
+    })
+    .animate({
+      rotate: $("#volume").data("value") * (volDegMax - volDegMin) / 100 + volDegMin + "degs"
+    }, 1420);
 	
 	function spinVolume(event) {
 		var self = $('#volume');  
 	   
-    var value = self.data("value") - 0.3*event.move.y;
+    var value = self.data("value") - 1.0*event.move.y;
 		var pc = bound(value);       
     self.data("value", pc);
 		var degs = pc * (volDegMax - volDegMin) / 100 + volDegMin + "degs"; 
@@ -119,6 +133,6 @@ $(document).ready(function(){
   myPlayer.jPlayer("setMedia", {
     mp3: stations[0].mp3
   });
-  setTimeout(function() {myPlayer.jPlayer('play');},1500);
 
+  setTimeout(function() {myPlayer.jPlayer('play');},1500);
 });
