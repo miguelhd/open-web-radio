@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 	function spinTuning(event) {
 		var self = $('#tuning');
-    var value = self.data("value") - 1.1*event.move.y;
+    var value = self.data("value") - 1.6*event.move.y;
 		var pc = bound(value);       
     self.data("value", pc);
 		var degs = (pc * 3.6) +"deg"; 
@@ -86,7 +86,7 @@ $(document).ready(function(){
     })
     .animate({
       rotate: $("#volume").data("value") * (volDegMax - volDegMin) / 100 + volDegMin + "degs"
-    }, 1420);
+    }, 820);
 	
 	function spinVolume(event) {
 		var self = $('#volume');  
