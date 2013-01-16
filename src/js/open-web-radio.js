@@ -107,7 +107,7 @@ $(document).ready(function(){
     next_static = Math.floor(6*Math.random());
     document.getElementById('static_' + next_static).play();
   }
-  var throttled_static = _.throttle(play_static, 4);
+  var throttled_static = _.throttle(play_static, 0.5);
 	
 	$('#tuning').grab({
 		onstart: function(){     
