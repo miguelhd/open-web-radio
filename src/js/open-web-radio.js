@@ -87,12 +87,13 @@ $(document).ready(function(){
 		for (i=0; i<stations.length; i++)
 		{
 			if (pc > i*zoneSize && pc <= (i+1)*zoneSize && i != station) {
-			   	// Change stations  
-			   	//console.log('station = '+i);
+			  // Change stations  
+			  console.log('station = '+i);
 				station = i;  
 				myPlayer.jPlayer("setMedia", {
 					mp3: stations[station].mp3
 		    });
+        socket.emit("join_channel", stations[i].metadata);
 		           
 				// delay before playing or Firefox will stall for 15 seconds
 				setTimeout(function() {myPlayer.jPlayer('play');},1500);
@@ -126,14 +127,19 @@ $(document).ready(function(){
 		myPlayer.jPlayer("volume", pc/100);
 	}
 	
-  // static
-  var next_static = Math.round(5*Math.random());
+  // pick random static sound and play it
   var play_static = function() {
-    // pick random static sound
-    next_static = Math.floor(6*Math.random());
+    var next_static = Math.round(5*Math.random());
+
+    // set volume of static
+    var volume = $("#volume").data("value")/3/100;
+    document.getElementById('static_' + next_static).volume = volume;
+
+    // play static
     document.getElementById('static_' + next_static).play();
+    console.log("static");
   }
-  var throttled_static = _.throttle(play_static, 0.5);
+  var throttled_static = _.throttle(play_static, 1640);
 	
 	$('#tuning').grab({
 		onstart: function(){     

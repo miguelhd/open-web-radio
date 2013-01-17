@@ -101,28 +101,27 @@ body {
 img { border: 0; }
 
 #song_metadata {
-  color: #111;
-  width: 404px;
-  height: 140px;
-  background: rgba(200,200,200,0.9);
-  padding: 12px;
-  border-radius: 4px;
+  color: rgba(110,0,0,0.9);
+  width: 484px;
+  height: 220px;
   position: absolute;
-  top: 150px;
-  left: 180px;
+  top: 124px;
+  left: 154px;
+  font-size: 24px;
+  text-shadow: 1px 1px 1px #bbb, -1px -1px 1px #bbb;
 }
 
 #song_metadata h1 {
   margin: 0;
   padding: 0;
   font-weight: normal;
-  font-size: 24px;
+  font-size: 32px;
   line-height: 1em;
 }
 
 #song_metadata .label {
   margin-top: 12px;
-  color: #777;
+  color: #222;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 14px;
 }
