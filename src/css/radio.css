@@ -74,6 +74,7 @@ body {
 	-webkit-transform: rotate(76deg); 
 	-moz-transform: rotate(76deg);	
 	-o-transform: rotate(76deg);
+  cursor: ns-resize;
 }
 
 #volume {
@@ -86,6 +87,7 @@ body {
 	-webkit-transform: rotate(270deg); 
 	-moz-transform: rotate(270deg);	
 	-o-transform: rotate(270deg);
+  cursor: ns-resize;
 }
 
 #shine {
