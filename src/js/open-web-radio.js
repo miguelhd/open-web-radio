@@ -1,16 +1,42 @@
+var stations = [
+  {
+    mp3: "http://198.154.106.98:8201/stream",
+    metadata: "8201"
+  },
+  {
+    mp3: "http://198.154.106.98:8202/stream",
+    metadata: "8202"
+  },
+  {
+    mp3: "http://198.154.106.98:8203/stream",
+    metadata: "8203"
+  },
+  {
+    mp3: "http://198.154.106.98:8204/stream",
+    metadata: "8204"
+  }
+];
+
+
+// metadata display
+var socket = io.connect('http://confit.aws.af.cm');
+
+socket.on('connect', function (data) {
+  socket.emit("join_channel", stations[0].metadata);
+  console.log("connected");
+});
+
+socket.on('track_change', function (data) {
+  console.log(data);
+  $("#song_metadata h1").text(data.name);
+  $("#song_metadata .artist").text(data.artist);
+  $("#song_metadata .album").text(data.album);
+});
+
 $(document).ready(function(){    
-	
-	// jPlayer stuff
-	
+  // radio player
 	var myPlayer = $("#jquery_jplayer_1");   
 	var station = 0;   
-
-	var stations = [
-		{mp3: "http://198.154.106.98:8201/stream"},
-		{mp3: "http://198.154.106.98:8202/stream"},
-		{mp3: "http://198.154.106.98:8203/stream"},
-		{mp3: "http://198.154.106.98:8204/stream"}
-	];
 
   // radio appearance
 
@@ -129,10 +155,13 @@ $(document).ready(function(){
 		}
 	}); 
 
+
   // autoplay
   myPlayer.jPlayer("setMedia", {
     mp3: stations[0].mp3
   });
 
-  setTimeout(function() {myPlayer.jPlayer('play');},1500);
+  setTimeout(function() {
+    myPlayer.jPlayer('play');}
+  , 1200);
 });

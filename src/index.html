@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="js/jquery.grab.js"></script>
 		<script type="text/javascript" src="js/jquery.rotate.js"></script>  
 		<script type="text/javascript" src="js/jquery.jplayer.js"></script>
-		<script type="text/javascript" src="js/open-web-radio.js"></script>
+    <script src="http://confit.aws.af.cm/socket.io/socket.io.js"></script>
 	</head>
 <body>
 <div id="jquery_jplayer_1" class="jp-jplayer"></div>
@@ -38,18 +38,23 @@
 	<!--<div class="thumb"></div>-->
 </div> <!-- change transform: rotate() to make it turn -->  
 <div id="volume" data-value=65></div> <!-- change transform: rotate() to make it turn -->  
-
-<div class="song" >
-  <span id="cc_stream_info_song">Loading...</span>
+<div id="song_metadata" >
+  <!--<span id="cc_stream_info_song"></span>-->
+  <h1>Loading...</h1>
+  <div class="label">Artist</div>
+  <div class="artist"></div>
+  <div class="label">Album</div>
+  <div class="album"></div>
 </div>
-
-  <audio id="static_0" src="sounds/static_0.wav" type="audio/wav" preload="auto"></audio>
-  <audio id="static_1" src="sounds/static_1.wav" type="audio/wav" preload="auto"></audio>
-  <audio id="static_2" src="sounds/static_2.wav" type="audio/wav" preload="auto"></audio>
-  <audio id="static_3" src="sounds/static_3.wav" type="audio/wav" preload="auto"></audio>
-  <audio id="static_4" src="sounds/static_4.wav" type="audio/wav" preload="auto"></audio>
-  <audio id="static_5" src="sounds/static_5.wav" type="audio/wav" preload="auto"></audio>
-  <script type="text/javascript" src="js/streaminfo_mtr.js"></script>
-  <script type="text/javascript" src="http://magictransistor.serverhostingcenter.com/js.php/alltransistor_2/streaminfo/rnd0"></script>
+<script type="text/javascript" src="js/open-web-radio.js"></script>
+<audio id="static_0" src="sounds/static_0.wav" type="audio/wav" preload="auto"></audio>
+<audio id="static_1" src="sounds/static_1.wav" type="audio/wav" preload="auto"></audio>
+<audio id="static_2" src="sounds/static_2.wav" type="audio/wav" preload="auto"></audio>
+<audio id="static_3" src="sounds/static_3.wav" type="audio/wav" preload="auto"></audio>
+<audio id="static_4" src="sounds/static_4.wav" type="audio/wav" preload="auto"></audio>
+<audio id="static_5" src="sounds/static_5.wav" type="audio/wav" preload="auto"></audio>
+<!--<script type="text/javascript" src="js/streaminfo_mtr.js"></script>
+<script type="text/javascript" src="http://magictransistor.serverhostingcenter.com/js.php/alltransistor_2/streaminfo/rnd0"></script>
+-->
 </body>
 </html>
