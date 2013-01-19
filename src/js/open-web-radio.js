@@ -28,9 +28,10 @@ socket.on('connect', function (data) {
 
 socket.on('track_change', function (data) {
   console.log(data);
-  $("#song_metadata h1").text(data.name);
-  $("#song_metadata .artist").text(data.artist);
-  $("#song_metadata .album").text(data.album);
+  $("#song_metadata h1").text(data.name || "-");
+  $("#song_metadata .artist").text(data.artist || "-");
+  $("#song_metadata .album").text(data.album || "-");
+  $("#song_metadata .year").text(data.year || "-");
 });
 
 $(document).ready(function(){    
@@ -153,13 +154,39 @@ $(document).ready(function(){
 		}
 	});   
 	
+  var vol_moved = false;
+  var vol_on = true;
 	$('#volume').grab({
-		onstart: function(){     
-			// dragging = true;
+		onstart: function(event){     
+      vol_moved = false;
 		}, onmove: function(event){   
+      vol_moved = true;
+      vol_on = true;
 			spinVolume(event);   
-		}
+		}, onfinish: function() {
+      if (vol_moved) return;
+      if (vol_on) {
+        vol_on = false;
+        $("#volume")
+          .animate({
+            rotate: "0degs"
+          }, 1200)
+          .data("value", 0);
+        volume = 0;
+        myPlayer.jPlayer("volume", volume/100);
+      } else {
+        vol_on = true;
+        $("#volume")
+          .data("value", 60)
+          .animate({
+            rotate: $("#volume").data("value") * (volDegMax - volDegMin) / 100 + volDegMin + "degs"
+          }, 820);
+        volume = 60;
+        myPlayer.jPlayer("volume", volume/100);
+      }
+    }
 	}); 
+
 
 
   // autoplay
